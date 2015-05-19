@@ -1,0 +1,63 @@
+Expression Evaluation:
+---------------------
+
+1) Take the leftmost operator
+2) Evaluate its operands (left before right)
+3) Apply the operator to the operands
+
+
+(2 * pi) * radius
+
+(2 * 3.14159) * radius
+
+6.28318 * radius
+
+6.283818 * 10
+
+62.8318
+
+
+Call By Value:
+-------------------
+
+def sumOfSquares(x: Double, y:Double) = square(x) + square(y)
+
+
+sumOfSquares(3, 2+2)
+
+sumOfSquares(3, 4)
+
+square(3) + square(4)
+
+3 * 3 + square(4)
+
+9 + 4 * 4
+
+9 + 16
+
+25
+
+
+Call By Name:
+-------------------
+* apply the function to unreduced arguments
+
+sumOfSquares(3, 2+2)
+
+square(3) + square(2+2)
+
+3 * 3 + square(2+2)
+
+9 + (2+2) * (2+2)
+
+9 + 4 * (2+2)
+
+9 + 4 * 4
+
+9 + 16
+
+25
+
+* Both strategies reduce to the same final value as long as
+  > the reduced consists of pure functions, and
+  > both evaluation terminate.
