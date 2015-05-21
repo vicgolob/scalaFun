@@ -1,5 +1,7 @@
 package parenthesesBalancing
 
+import helloworld.Hello
+
 /**
  * Write a recursive function which verifies the balancing of parentheses in a string, which we represent as a List[Char] not a String. For example, the function should return true for the following strings:
 (if (zero? x) max (/ 1 x))
@@ -21,29 +23,64 @@ chars.head: Char returns the first element of the list
 chars.tail: List[Char] returns the list without the first element
  */
 class ParenthesesBalancer {
-  def balance(chars: List[Char]): Boolean = {
-    lookForCharacter(chars, '(', ')')
+
+  def isBalanced(chars: List[Char]): Boolean = {
+    if(chars.head.equals(')'))
+      return true
+
+    if(chars.isEmpty)
+      return false
+
+    if(chars.head.equals('('))
+      if(isBalanced(chars.tail))
+        return false
+
+    isBalanced(chars.tail)
   }
-  
+
+  def balance(chars: List[Char]): Boolean = {
+    if(chars.isEmpty)
+      return true
+    if(chars.head.equals('('))
+      if(!isBalanced(chars.tail))
+        return false
+    balance(chars.tail)
+  }
+  // lookForCharacter(chars, '(', ')')
+
+/*
   def lookForCharacter(chars: List[Char], admited_char: Char, notAllowedChar: Char): Boolean = {
-    if (chars.head == notAllowedChar)
-      false
-
     if (chars.isEmpty)
-      true
+      return true
 
-    if (chars.head == admited_char)
-    lookForCharacter(chars.tail.reverse, notAllowedChar, admited_char)
+//    if (chars.head.equals(notAllowedChar))
+//      return false
+
+    if (chars.head.equals(admited_char))
+      lookForCharacter(chars.tail.reverse, notAllowedChar, admited_char)
+    lookForCharacter(chars.tail, admited_char, notAllowedChar)
+  }
+*/
+  def lookForCharacter(chars: List[Char], admited_char: Char, notAllowedChar: Char): Boolean = {
+    if (chars.isEmpty)
+      return true
+
+    //    if (chars.head.equals(notAllowedChar))
+    //      return false
+
+    if (chars.head.equals(admited_char))
+      lookForCharacter(chars.tail.reverse, notAllowedChar, admited_char)
     lookForCharacter(chars.tail, admited_char, notAllowedChar)
   }
 
-  val test1 : String = "(if (zero? x) max (/ 1 x))"
-  val parenthesisList : List[Char] = test1.toList
+ // val test1 : String = "(if (zero? x) max (/ 1 x))"
+ // val parenthesisList : List[Char] = test1.toList
 
-  parenthesisList.head
-  balance(test1.toList)
+//  parenthesisList.head
+//  balance(test1.toList)
   
     //chars.foreach{ println } false
 
 
 }
+
