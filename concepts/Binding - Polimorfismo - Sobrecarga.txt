@@ -1,0 +1,85 @@
+Binding - Polimorfismo - Sobrecarga
+
+* Binding Dinamico:
+  -------------
+
+Hasta que no se realiza el method look-up, vos no sabes que metodo se ejecutara
+Antes de ejecutarlo, el compilador no sabe cual metodo se ejecutará. En Tiempo de Compilacion no se puede saber
+
+La pregunta es ¿Que cosa se guarda en tiempo estatico?
+
+Firma de un método:
+------------------
+Nombredelmetodo(parametros):devolucion
+
+* Polimorfismo:
+  ----------
+Es dinamico, decide en EN EJECUCION. 
+
+* Sobrecarga:
+  ---------
+Usar el mismo nombre para dos metodos distintos (con distinto parámetro de entrada).
+(!) > La induccion de tipos trabaja en tiempo de COMPILACIÓN. POR ESO
+
+
+Tanque
+	atacarA(Guerrero)
+	atacarA(Defensor)
+
+Defensor
+|
+|
+Guerrero
+
+@Before
+def setup(){
+	val tanque = Tanque.new
+	val guerrero = Guerrero.new
+}
+@Test
+def unTanqueAtacaAUnGuerrero(){
+	
+	val militar : Defensor = guerrero
+
+	taque.atacarA(militar) //Asume que es un DEFENSOR, entonces tomar el metodo atacarA(Defensor)
+}
+(!) PROBLEMA: NO PUEDE DARSE CUENTA EN TIEMPO DE EJECUCION QUE ESTA PASANDOLE UN GUERRERO.
+
+
+Problema:
+--------
+
+Tengo un contenedor genérico y quiero poder tratarlo como corresponde a su especificacion.
+
+#Tanque
+def atacarATodos(defensores: Set) =
+	defensores.foreach { defensor => atacarA(defensor)}
+}
+
+
+
+---> Aparecen generics!!
+
+#Tanque
+def atacarATodos(defensores: Set[Defensores]) =
+	defensores.foreach { defensor => atacarA(defensor)}
+}
+
+ojo!--> siempre va a ser el tipo de ataqueA(Defensor)
+
+
+
+-->En objetos: se resuelve por polimorfismo
+
+#Tanque
+def atacarA(Defensor:defensor){
+	defensor.esAtacado(this)
+}
+
+#Defensor
+  def esAtacado(tanque: Tanque) =
+    this.teAtacoUnAtacante(tanque)	
+
+#Guerrero
+  def teAtacoUnAtacante(tanque:Tanque)
+  #Aqui va el codigo de implementacion

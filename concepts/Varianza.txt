@@ -1,0 +1,140 @@
+Tipado: Varianza 
+---------------
+
+/////////////////////////////////////
+Animal
+-----
+come()
+estaGordo()
+|
+|
+|
+
+Vaca
+----
+ordeniate
+
+Vaca
+----
+reite
+
+////////////////////
+
+val miAnimal: Animal = new Vaca
+val miVaca: Vaca = new Vaca
+
+mivaca.orderniate #ok!
+mianimal.ordeniate #en tiempo de compilacion no lo entiende!!
+
+
+class Corral{
+	val animales: Set[Animales]
+}
+
+
+class Lechero {
+	def ordeñar(corral: Corral) =
+		corral.animales.foreach { animal => animal.ordeñar }
+}
+#Ahora si tuviera un corral de otra cosa, deberia crear un corral distinto para cada uno......
+
+class Pastor {
+	def pastorear(animales: Set[Animales])
+}
+
+
+
+
+*Usamos Generics
+---------------
+
+Class Corral[T] {
+	val animales: Set[T]
+}
+
+Generics de subclases
+------------------------
+Class Corral[T <: Animal] {
+	val animales: Set[T]
+}
+
+
+object corrales{
+	val corralito = new Corral[Vaca]()	
+}
+
+object setDeAnimalesVsVacas {
+	val unaVaca : Vaca = new Vaca
+	
+	var vacas: Set[Vaca] = ??
+	var animales : Set[Animal]  = vacas
+
+	animales.add(new Caballo) ##ERROR!!!! 
+}
+
+
+VARIANZA
+--------
+- Invarianza
+- Covarianza
+-
+
+.......................................................................................
+Varianza: Si un tipo es de otro tipo, entocnes algo que lo recibe como parametro ¿es de ese otro tipo?.
+.......................................................................................
+
+- Invarianza: No es de otro tipo.
+.............................
+Vaca <- Animal
+Set[Vaca] <- Set[Animal] // ES INVARIANTE.
+
+El set es invariante.
+
+Set[X] < Set [Y] <=> X == Y
+
+
+- Covarianza: Permite usar Subclases
+............................
+
+F[X] <: F[Y] <-> X > Y
+
+Function1[P,+R] // Admite subtipos de retorno, no supertipo
+
+
+// Varaible Recibe una vaca devuelve una vaca.
+var f : Vaca => Vaca = ?? 
+// Uso
+f(new Vaca).ordeñate =
+
+def g(vaca: Vaca) : Animal = ??
+var f : Vaca => Vaca = g #X: NO TIPA
+f(new Vaca).ordeñate =
+
+
+def h(vaca: Vaca) : Vaca = ??
+var f : Vaca => Vaca = h #OK
+f(new Vaca).ordeñate =
+
+def i(vaca: Vaca) : VacaLoca = ??
+var f : Vaca => Vaca = i #OK - 	Lo permite, 
+								puede devolver algo mas especifico xq una VacaLoca es una Vaca y va a enteder los metodos que vos dsp le pases.
+f(new Vaca).ordeñate =
+
+
+- Contravarianza: Permite usar Superclases- "De aca para arriba admito"
+............................
+
+F[X] <: F[Y] <-> X < Y
+
+def j(vacaLoca: VacaLoca) : Vaca = ??
+var f : Vaca => Vaca = j # No tipa. No funciona xq la funcion al pasarle como parametro algo mas especifico no lo podria entender
+f(new Vaca).ordeñate =
+
+def k(animal: Animal) : Vaca = ??
+var f : Vaca => Vaca = k # No tipa.
+f(new Vaca).ordeñate =
+
+
+Las funciones son contraVariantes para sus parametros y coVariantes con respecot a sus metodos
+
+

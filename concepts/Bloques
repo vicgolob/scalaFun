@@ -1,0 +1,6 @@
+Bloques:
+-------
+
+def atacarATodos(defensores: Set) =
+	defensores.foreach { defensor => atacarA(defensor)}
+}

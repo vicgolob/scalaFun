@@ -1,0 +1,17 @@
+
+Problema:
+--------
+
+Tengo un contenedor genérico y quiero poder tratarlo como corresponde a su especificacion.
+
+#Tanque
+def atacarATodos(defensores: Set) =
+	defensores.foreach { defensor => atacarA(defensor)}
+}
+
+---> Aparecen generics!!
+
+#Tanque
+def atacarATodos(defensores: Set[Defensores]) =
+	defensores.foreach { defensor => atacarA(defensor)}
+}
