@@ -1,0 +1,89 @@
+Las clases en scala no son Objetos.
+
+Los objetos se ejecutan se inicializan.
+> atila = new Guerrero
+
+self --reemplaza --> this
+
+
+VAL / VAR / DEF:
+...............
+
+* val: es un VALOR. Solo me provee un getter. No puede ser cambiado. Se llama al momento de instanciacion.
+
+* lazyval: es un val. Se inicializa la primera vez que se llama
+
+* var: hace referencia a un objeto MUTABLE. No veo el atributo. Puede ser seteado.
+        Provee un getter y del setter
+
+* def: definir un metodo. Se evalúa cada vez que se llama
+
+
+
+Diferencia entre def y val:
+    val-> se ejecuta la primera vez que lo instancio
+    def -> ejecuto cada vez que lo invoco. Utiliza parametros (es para definir funciones)
+
+Setter:
+......
+this.energia_=(100)
+
+
+Modificadores de acceso:
+.......................
+- public
+- protected: jerarquia
+
+Contruir una clase
+..................
+-> hacer un constructor con parametro. Puedo pasarle parametros val para que utilice.
+-> definir métodos
+
+Class Guerrero (val potencialOfensivo: Int, val PotencialDefensivo: Int) {
+
+    var energia = 100
+
+    def perderEnergia(cantidad: Int) =
+        energia = (energia - cantidad).max(0)
+}
+
+Class Espadachin(potencialOfensivo: Int, potencialDefensivo: Int, val habilidad:Double, val espada:Espada)
+        extends  Guerrero(potencialOfensivo, potencialDefensivo){
+
+        override def potencialOfensivo = {
+            (super.potencialOfensivo + espada.poder * habilidad).toInt
+        }
+}
+
+
+
+(!) NO hay interfaces
+
+(!) HAY clases abstractas
+
+* POLIMORFISMO:
+..............
+
+     => Para que haya Polimorfismo entre 2 entidades, es necesario que haya una tercera entidad que los defina como tipo
+     => NO HAY POLIMORFISMO SI UN TIPO COMUN.
+
+
+* MIXINS:
+.........
+: Nombre en Scala: Traits
+: Resueltos por linearizacion.
+
+
+    trait Atacante {
+        def AtacarA (guerrero: Guerrero)
+    }
+
+    trait Defensor {
+        //codigo de defensor
+    }
+    class Misil extendes Atacante{
+
+    def atacarA(guerrero: Guerrero) =
+        guerrero.perderEnergia(1000)
+    }
+

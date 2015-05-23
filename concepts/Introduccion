@@ -1,0 +1,58 @@
+Objetos     -> requieren tener Efecto Colateral
+Funcional   -> requiere No tener efecto Colateral
+
+Temas a Desarrollar:
+* Contratos Fuertes y Débiles
+* Tipado
+* Scala
+
+Contrato: conjunto de términos que imponemos.
+
+Concepcion de "Tipo":
+---> Operacionales: conjunto de operaciones asociado a un conjunto de valores.
+        Las operaciones determinan el tipo de un objeto.
+        La entrada y Salida de la operacion también determinan el tipo.
+    ej1:  7 : Entero.
+    ej1: "7": String.
+
+    Ej: Dado el caso sgte, son del mismo tipo?
+    ej2:"7" * 2 = 14
+    ej2: 7 * 2 = 14
+
+    X) Error Operacional
+    int x = 5;
+    x.salame()
+
+---> Estructural: hace incapie en como está constituido.
+
+    En C: int n. -> es un Entero. Reserva 4 bytes. / 70000 -> es un Long (es > 65356)
+    struct saraza {
+      int n;
+      char *s; --> es un puntero
+    }
+    Piensa en tipos como referencias a memoria.
+
+    X)Error estructural:
+        f::(Int,Int,Int)->2
+        f(d,2) = 1
+
+------------------------------
+(!)Dos ventajas notables del tipado es que detecta errores y nos da mas informacion sobre el objeto con el que estoy trabajando.
+------------------------------
+
+"Tipado" -> chequear que algo tipa.
+
+1) Explicito / Implicito:
+    Explicito: lenguaje que pide que le explicite el tipo de lenguajes. JAVA - Ej: int x = 5; x = "Hola";// ERROR!
+    Implicito: lenguaje que NO pide que le explicite el tipo de lenguajes. C    - Ej: int x = 5; X = "No rompo :)" ;
+
+2) Estático / Dinámico:
+    Estatico: Previo a la ejecucion. HASKELL : f x y = x + y // Haskell infiere f::Num a => a -> a -> a
+    Dinámico: Durante la ejecucion.
+
+3) Nominal / Estructural:
+    Nominal: Siempre que asigno un tipo, este tiene un nombre. El nombre determina el tipo.
+    Estructural: La estructura determina el tipo.
+
+En gral Objetos: Explicito, Dinamico, Nominal.
+Scala -> Explicito, Estatico y Nominal.
