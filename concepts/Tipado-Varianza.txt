@@ -121,7 +121,7 @@ var f : Vaca => Vaca = i #OK - 	Lo permite,
 f(new Vaca).ordeñate =
 
 
-- Contravarianza: Permite usar Superclases- "De aca para arriba admito"
+- Contravarianza[A1 >: A]: Permite usar Superclases- "De aca para arriba admito". +A :p
 ............................
 
 F[X] <: F[Y] <-> X < Y
@@ -131,10 +131,29 @@ var f : Vaca => Vaca = j # No tipa. No funciona xq la funcion al pasarle como pa
 f(new Vaca).ordeñate =
 
 def k(animal: Animal) : Vaca = ??
-var f : Vaca => Vaca = k # No tipa.
+var f : Vaca => Vaca = k # Tipa.
 f(new Vaca).ordeñate =
 
 
 Las funciones son contraVariantes para sus parametros y coVariantes con respecot a sus metodos
 
+
+Class Corral[T <: Animal] {
+	val animales: Set[T]
+}
+
+
+object corrales{
+	val corralito = new Corral[Vaca](Lista(new Vaca, new Vaca, ))	
+
+	val lechero = new Lechero
+	val pastores = new Pastor
+
+	val lista = new Vaca :: new Vaca :: Nil // Es inmutable y covariante 
+												por eso le puedo pasar distintos tipos Animales.
+
+	lista.contains[Any](new Corral(Nil)) # Contains es covariante
+
+	pastor.pastorear(corralito.animales)
+}
 
